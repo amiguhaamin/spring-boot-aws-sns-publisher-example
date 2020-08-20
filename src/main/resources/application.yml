@@ -1,0 +1,19 @@
+server:
+  port: 8090
+
+cloud:
+  aws:
+    region:
+      static: us-west-2
+#      auto: true
+    stack:
+      auto: false # disable AWS Cloudformation config gathering
+
+app:
+  sns:
+    topic: ccpa_topic
+
+sns:
+  topic:
+    arn:
+

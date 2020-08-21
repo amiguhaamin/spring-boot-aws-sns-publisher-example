@@ -3,7 +3,7 @@ package com.rga.springbootawssnsproducerexample.controller;
 import com.amazonaws.services.sns.AmazonSNSAsync;
 import com.google.gson.Gson;
 import com.rga.springbootawssnsproducerexample.config.SNSConfig;
-import com.rga.springbootawssnsproducerexample.model.SamsungPhone;
+import com.rga.springbootawssnsproducerexample.model.SchoolDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,36 +35,40 @@ public class AmazonSNSController {
     @PostMapping("/publish")
     public void publishSNSMessage() throws Exception {
 
-        List<SamsungPhone> samsungPhones = new ArrayList<>();
+        List<SchoolDetails> schoolList = new ArrayList<>();
 
-        SamsungPhone galaxyNote10Plus = new SamsungPhone();
-        galaxyNote10Plus.setName("Samsung Galaxy Note 10 Plus");;
-        galaxyNote10Plus.setDescription("2019 flagship phone with a 6.8 inch Super AMOLED display, S Pen, and much more");
-        galaxyNote10Plus.setTimestamp(System.currentTimeMillis());
-        samsungPhones.add(galaxyNote10Plus);
+        SchoolDetails elementary = new SchoolDetails();
+        elementary.setName("Aukamm Elementary School");
+        elementary.setType("Elementary school");
+        elementary.setDescription("This school is supported by the Kaiserslautern School District.");
+        elementary.setTimestamp(System.currentTimeMillis());
+        schoolList.add(elementary);
 
-        SamsungPhone galaxyNote10 = new SamsungPhone();
-        galaxyNote10.setName("Samsung Galaxy Note 10");;
-        galaxyNote10.setDescription("2019 flagship phone with a 6.5 inch Super AMOLED display, S Pen, and much more");
-        galaxyNote10.setTimestamp(System.currentTimeMillis());
-        samsungPhones.add(galaxyNote10);
+        SchoolDetails middleSchool = new SchoolDetails();
+        middleSchool.setName("Community Day Charter School");
+        middleSchool.setType("Middle school");
+        middleSchool.setDescription("Community Day Charter was founded in 1995 and was one of the first charter schools in Massachusetts.");
+        middleSchool.setTimestamp(System.currentTimeMillis());
+        schoolList.add(middleSchool);
 
-        SamsungPhone galaxyS10Plus = new SamsungPhone();
-        galaxyS10Plus.setName("Samsung Galaxy S 10 Plus");;
-        galaxyS10Plus.setDescription("Early 2019 flagship phone with a 6.5 inch Super AMOLED display, " +
-                "dual punch hole selfie cameras, and much more");
-        galaxyS10Plus.setTimestamp(System.currentTimeMillis());
-        samsungPhones.add(galaxyS10Plus);
+        SchoolDetails internationalSchool = new SchoolDetails();
+        internationalSchool.setName("International School Moshi");
+        internationalSchool.setType("International school");
+        internationalSchool.setDescription("International School Moshi is a fully accredited international school " +
+                "providing an education for children from both the local and expatriate communities from age 3 to age 19.");
+        internationalSchool.setTimestamp(System.currentTimeMillis());
+        schoolList.add(internationalSchool);
 
-        SamsungPhone galaxyS10 = new SamsungPhone();
-        galaxyS10.setName("Samsung Galaxy S 10");;
-        galaxyS10.setDescription("Early 2019 flagship phone with a 6.3 inch Super AMOLED display, " +
-                "dual punch hole selfie cameras, and much more");
-        galaxyS10.setTimestamp(System.currentTimeMillis());
-        samsungPhones.add(galaxyS10);
+        SchoolDetails bSchool = new SchoolDetails();
+        bSchool.setName("IIMA");
+        bSchool.setType("Business school");
+        bSchool.setDescription("The school has been accorded the status of an Institute " +
+                "of National Importance by Ministry of Human Resources, Government of India in 2017.");
+        bSchool.setTimestamp(System.currentTimeMillis());
+        schoolList.add(galaxyS10);
 
-        for (SamsungPhone samsungPhone : samsungPhones) {
-            this.snsConfig.publishSNSMessage(amazonSNSAsync, new Gson().toJson(samsungPhone));
+        for (SchoolDetails school : schoolList) {
+            this.snsConfig.publishSNSMessage(amazonSNSAsync, new Gson().toJson(school));
         }
     }
 

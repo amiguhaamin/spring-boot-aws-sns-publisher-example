@@ -4,6 +4,7 @@ import com.amazonaws.services.sns.AmazonSNSAsync;
 import com.google.gson.Gson;
 import com.rga.springbootawssnsproducerexample.config.SNSConfig;
 import com.rga.springbootawssnsproducerexample.model.SchoolDetails;
+import com.rga.springbootawssnsproducerexample.service.AmazonSnsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,14 @@ public class AmazonSNSController {
 
     @Autowired
     private AmazonSNSAsync amazonSNSAsync;
+
+    @Autowired
+    AmazonSnsService snsService;
+
+    @PostMapping("/saveJson")
+    public void saveData(@RequestBody SchoolDetails schoolDetails) throws Exception {
+        snsService.saveData(schoolDetails);
+    }
 
     @PostMapping("/publish")
     public void publishSNSMessage() throws Exception {
@@ -65,7 +74,7 @@ public class AmazonSNSController {
         bSchool.setDescription("The school has been accorded the status of an Institute " +
                 "of National Importance by Ministry of Human Resources, Government of India in 2017.");
         bSchool.setTimestamp(System.currentTimeMillis());
-        schoolList.add(galaxyS10);
+        schoolList.add(bSchool);
 
         for (SchoolDetails school : schoolList) {
             this.snsConfig.publishSNSMessage(amazonSNSAsync, new Gson().toJson(school));
